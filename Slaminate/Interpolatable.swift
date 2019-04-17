@@ -66,7 +66,7 @@ extension CGSize: Interpolatable {
             height: height.interpolate(to: (to as! CGSize).height, at: position) as! CGFloat
         )
     }
-    var objectValue: AnyObject? { return NSValue(cgSize: self) }
+    private var objectValue: AnyObject? { return NSValue(cgSize: self) }
 }
 
 extension CGRect: Interpolatable {
