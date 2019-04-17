@@ -39,11 +39,11 @@ class AnimationBuilder: AnimationGroup {
     var constraintInfos = [PropertyInfo]()
     var constraintPresenceInfos = [ConstraintPresenceInfo]()
     
-    let animation: () -> Void
+    let animation: (Void) -> Void
     var applyDuration: TimeInterval
     var applyCurve: Curve
     
-    init(duration: TimeInterval, curve: Curve, animation: @escaping () -> Void) {
+    init(duration: TimeInterval, curve: Curve, animation: @escaping (Void) -> Void) {
         self.animation = animation
         self.applyCurve = curve
         self.applyDuration = duration

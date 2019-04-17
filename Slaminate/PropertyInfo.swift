@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PropertyInfoProtocol: Equatable, Hashable {
-    var object: NSObject? { get set }
+    weak var object: NSObject? { get set }
     var key: String { get set }
     var fromValue: NSObject? { get set }
     var toValue: NSObject? { get set }

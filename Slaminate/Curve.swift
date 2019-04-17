@@ -10,46 +10,46 @@ public typealias CurveTransform = ((Double) -> Double)
 
 open class Curve : NSObject {
     
-    public let transform: CurveTransform
+    open let transform: CurveTransform
     
-    public static let linear = Curve(transform: { $0 }).guarded
-    public static let boolean = Curve(transform: { ($0 < 0.5 ? 0.0 : 1.0) }).guarded
-    public static let reversed = Curve(transform: { 1.0 - $0 }).guarded
+    open static let linear = Curve(transform: { $0 }).guarded
+    open static let boolean = Curve(transform: { ($0 < 0.5 ? 0.0 : 1.0) }).guarded
+    open static let reversed = Curve(transform: { 1.0 - $0 }).guarded
     
-    public static let easeIn = Curve(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeIn)).guarded
-    public static let easeOut = Curve(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeOut)).guarded
-    public static let easeInOut = Curve(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeInEaseOut)).guarded
-    public static let easeDefault = Curve(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.default)).guarded
+    open static let easeIn = Curve(mediaTimingFunction: kCAMediaTimingFunctionEaseIn).guarded
+    open static let easeOut = Curve(mediaTimingFunction: kCAMediaTimingFunctionEaseOut).guarded
+    open static let easeInOut = Curve(mediaTimingFunction: kCAMediaTimingFunctionEaseInEaseOut).guarded
+    open static let easeDefault = Curve(mediaTimingFunction: kCAMediaTimingFunctionDefault).guarded
     
-    public static let easeInQuad = Curve(transform: { pow($0, 2) }).guarded
-    public static let easeOutQuad = Curve(transform: { Double(-1.0) * $0 * Double($0 - 2.0) }).guarded
-    public static let easeInOutQuad = easeInQuad | easeOutQuad.guarded
+    open static let easeInQuad = Curve(transform: { pow($0, 2) }).guarded
+    open static let easeOutQuad = Curve(transform: { Double(-1.0) * $0 * Double($0 - 2.0) }).guarded
+    open static let easeInOutQuad = easeInQuad | easeOutQuad.guarded
     
-    public static let easeInCubic = Curve(transform: { pow($0, 3.0) }).guarded
-    public static let easeOutCubic = Curve(transform: { pow($0 - 1.0, 3.0) + 1.0 }).guarded
-    public static let easeInOutCubic = easeInCubic | easeOutCubic
+    open static let easeInCubic = Curve(transform: { pow($0, 3.0) }).guarded
+    open static let easeOutCubic = Curve(transform: { pow($0 - 1.0, 3.0) + 1.0 }).guarded
+    open static let easeInOutCubic = easeInCubic | easeOutCubic
     
-    public static let easeInQuart = Curve(transform: { pow($0, 4.0) }).guarded
-    public static let easeOutQuart = Curve(transform: { -1.0 * (pow($0 - 1.0, 4.0) - 1.0) }).guarded
-    public static let easeInOutQuart = easeInQuart | easeOutQuart
+    open static let easeInQuart = Curve(transform: { pow($0, 4.0) }).guarded
+    open static let easeOutQuart = Curve(transform: { -1.0 * (pow($0 - 1.0, 4.0) - 1.0) }).guarded
+    open static let easeInOutQuart = easeInQuart | easeOutQuart
     
-    public static let easeInQuint = Curve(transform: { pow($0, 5.0) }).guarded
-    public static let easeOutQuint = Curve(transform: { 1.0 * (pow($0 - 1.0, 5.0) + 1.0) }).guarded
-    public static let easeInOutQuint = easeInQuint | easeOutQuint
+    open static let easeInQuint = Curve(transform: { pow($0, 5.0) }).guarded
+    open static let easeOutQuint = Curve(transform: { 1.0 * (pow($0 - 1.0, 5.0) + 1.0) }).guarded
+    open static let easeInOutQuint = easeInQuint | easeOutQuint
     
-    public static let easeInSine = Curve(transform: { (-1.0 * cos($0 * .pi / 2) + 1.0) }).guarded
-    public static let easeOutSine = Curve(transform: { sin($0 * .pi / 2) }).guarded
-    public static let easeInOutSine = Curve(transform: { (-0.5 * cos(.pi * $0) + 0.5) }).guarded
+    open static let easeInSine = Curve(transform: { (-1.0 * cos($0 * .pi / 2) + 1.0) }).guarded
+    open static let easeOutSine = Curve(transform: { sin($0 * .pi / 2) }).guarded
+    open static let easeInOutSine = Curve(transform: { (-0.5 * cos(.pi * $0) + 0.5) }).guarded
     
-    public static let easeInExpo = Curve(transform: { ($0 == 0.0 ? 0.0 : pow(2.0, 10.0 * ($0 - 1.0))) }).guarded
-    public static let easeOutExpo = Curve(transform: { -pow(2.0, -10.0 * $0) + 1.0 }).guarded
-    public static let easeInOutExpo = easeInExpo | easeOutExpo
+    open static let easeInExpo = Curve(transform: { ($0 == 0.0 ? 0.0 : pow(2.0, 10.0 * ($0 - 1.0))) }).guarded
+    open static let easeOutExpo = Curve(transform: { -pow(2.0, -10.0 * $0) + 1.0 }).guarded
+    open static let easeInOutExpo = easeInExpo | easeOutExpo
     
-    public static let easeInCirc = Curve(transform: { -1.0 * (sqrt(1.0 - pow($0, 2.0)) - 1.0) }).guarded
-    public static let easeOutCirc = Curve(transform: { sqrt(1.0 - pow($0 - 1.0, 2.0)) }).guarded
-    public static let easeInOutCirc = easeInCirc | easeOutCirc
+    open static let easeInCirc = Curve(transform: { -1.0 * (sqrt(1.0 - pow($0, 2.0)) - 1.0) }).guarded
+    open static let easeOutCirc = Curve(transform: { sqrt(1.0 - pow($0 - 1.0, 2.0)) }).guarded
+    open static let easeInOutCirc = easeInCirc | easeOutCirc
     
-    public static let easeInElastic = Curve(transform: {
+    open static let easeInElastic = Curve(transform: {
         
         var s = 1.70158
         var p = 0.3
@@ -65,7 +65,7 @@ open class Curve : NSObject {
         return -(a * pow(2.0, 10.0 * ($0 - 1.0)) * sin((($0 - 1.0) - s) * (2.0 * .pi) / p))
         
     }).guarded
-    public static let easeOutElastic = Curve(transform: {
+    open static let easeOutElastic = Curve(transform: {
         
         var s = 1.70158
         var p = 0.3
@@ -81,7 +81,7 @@ open class Curve : NSObject {
         return a * pow(2.0, -10.0 * $0) * sin(($0 - s) * (2 * .pi) / p) + 1.0
         
     }).guarded
-    public static let easeInOutElastic = Curve(transform: {
+    open static let easeInOutElastic = Curve(transform: {
         
         var s = 1.70158
         var p = 0.3 * 1.5
@@ -107,17 +107,17 @@ open class Curve : NSObject {
         
     }).guarded
     
-    public static let easeInBack = Curve(transform: { $0 * $0 * (Double(2.70158) * $0 - Double(1.70158)) }).guarded
-    public static var easeOutBack = Curve(transform: {
+    open static let easeInBack = Curve(transform: { $0 * $0 * (Double(2.70158) * $0 - Double(1.70158)) }).guarded
+    open static var easeOutBack = Curve(transform: {
         let s = 1.70158
         let s2 = 2.70158
         let n = $0 - 1.0;
         return n * n * (s2 * n + s) + 1.0
     }).guarded
-    public static let easeInOutBack = easeInBack | easeOutBack
+    open static let easeInOutBack = easeInBack | easeOutBack
     
-    public static let easeInBounce = Curve(transform: { 1.0 - easeOutBounce.transform(1.0 - $0) }).guarded
-    public static let easeOutBounce = Curve(transform: {
+    open static let easeInBounce = Curve(transform: { 1.0 - easeOutBounce.transform(1.0 - $0) }).guarded
+    open static let easeOutBounce = Curve(transform: {
         
         var r = 0.0
         
@@ -138,7 +138,7 @@ open class Curve : NSObject {
         
         return r;
     }).guarded
-    public static let easeInOutBounce = easeInBounce | easeOutBounce
+    open static let easeInOutBounce = easeInBounce | easeOutBounce
     
     public init(transform: @escaping CurveTransform) {
         self.transform = transform
@@ -230,35 +230,30 @@ extension Curve {
     
     public convenience init(mediaTimingFunction: String) {
         switch mediaTimingFunction {
-        case convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.default):
+        case kCAMediaTimingFunctionDefault:
             self.init(cp1: CGPoint(x: 0.25, y: 0.1), cp2: CGPoint(x: 0.25, y: 1.0))
-        case convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeIn):
+        case kCAMediaTimingFunctionEaseIn:
             self.init(cp1: CGPoint(x: 0.42, y: 0.0), cp2: CGPoint(x: 1.0, y: 1.0))
-        case convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeOut):
+        case kCAMediaTimingFunctionEaseOut:
             self.init(cp1: CGPoint(x: 0.0, y: 0.0), cp2: CGPoint(x: 0.58, y: 1.0))
-        case convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeInEaseOut):
+        case kCAMediaTimingFunctionEaseInEaseOut:
             self.init(cp1: CGPoint(x: 0.42, y: 0.0), cp2: CGPoint(x: 1.0, y: 1.0))
         default:
             self.init(transform: { $0 })
         }
     }
     
-    public convenience init(viewAnimationCurve: UIView.AnimationCurve) {
+    public convenience init(viewAnimationCurve: UIViewAnimationCurve) {
         switch viewAnimationCurve {
         case .linear:
-            self.init(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.linear))
+            self.init(mediaTimingFunction: kCAMediaTimingFunctionLinear)
         case .easeIn:
-            self.init(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeIn))
+            self.init(mediaTimingFunction: kCAMediaTimingFunctionEaseIn)
         case .easeOut:
-            self.init(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeOut))
+            self.init(mediaTimingFunction: kCAMediaTimingFunctionEaseOut)
         case .easeInOut:
-            self.init(mediaTimingFunction: convertFromCAMediaTimingFunctionName(CAMediaTimingFunctionName.easeInEaseOut))
+            self.init(mediaTimingFunction: kCAMediaTimingFunctionEaseInEaseOut)
         }
     }
     
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromCAMediaTimingFunctionName(_ input: CAMediaTimingFunctionName) -> String {
-	return input.rawValue
 }

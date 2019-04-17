@@ -16,7 +16,7 @@ open class Animation: NSObject {
         self.duration = duration
         super.init()
         ongoingAnimations.append(self)
-        perform(#selector(Animation.go as (Animation) -> () -> Animation), with: nil, afterDelay: 0.0, inModes: [RunLoop.Mode.common])
+        perform(#selector(Animation.go as (Animation) -> () -> Animation), with: nil, afterDelay: 0.0, inModes: [RunLoopMode.commonModes])
     }
     
     public convenience override init() {
@@ -28,7 +28,7 @@ open class Animation: NSObject {
     open var duration: TimeInterval
     open internal(set) var delay: TimeInterval = 0.0
     
-    @objc open var reversed: Bool {
+    open var reversed: Bool {
         @objc(isReversed) get {
             guard owner == nil else { return owner!.reversed }
             return false
@@ -122,7 +122,7 @@ open class Animation: NSObject {
         return self
     }
     
-    open func then(duration: TimeInterval, curve: Curve?, animation: @escaping () -> Void) -> Animation {
+    open func then(duration: TimeInterval, curve: Curve?, animation: @escaping (Void) -> Void) -> Animation {
         return then(
             animation: AnimationBuilder(
                 duration: duration,
@@ -140,7 +140,7 @@ open class Animation: NSObject {
         return AnimationChain(animations: [self] + animations)
     }
     
-    open func and(duration: TimeInterval, curve: Curve?, animation: @escaping () -> Void) -> Animation {
+    open func and(duration: TimeInterval, curve: Curve?, animation: @escaping (Void) -> Void) -> Animation {
         return and(
             animation: AnimationBuilder(
                 duration: duration,
@@ -191,7 +191,7 @@ open class Animation: NSObject {
         complete(true)
     }
     
-    @objc func precommit() {
+    func precommit() {
         if (position >= delay) {
             emit(.animating)
         }
@@ -201,7 +201,7 @@ open class Animation: NSObject {
     
     func preflight() {
         if position < delay {
-            perform(#selector(Animation.precommit), with: nil, afterDelay: (delay - position) / speed, inModes: [RunLoop.Mode.common])
+            perform(#selector(Animation.precommit), with: nil, afterDelay: (delay - position) / speed, inModes: [RunLoopMode.commonModes])
         } else {
             precommit()
         }
@@ -214,7 +214,7 @@ open class Animation: NSObject {
         preflight()
     }
     
-    @objc open func go() -> Animation {
+    open func go() -> Animation {
         return go(speed: 1.0)
     }
     
@@ -253,7 +253,7 @@ extension Array where Element: Animation {
     }
 }
 
-public func Slaminate(duration: TimeInterval, curve: Curve?, animation: @escaping () -> Void) -> Animation {
+public func Slaminate(duration: TimeInterval, curve: Curve?, animation: @escaping (Void) -> Void) -> Animation {
     return AnimationBuilder(
         duration: duration,
         curve: curve ?? Curve.linear,
@@ -262,7 +262,7 @@ public func Slaminate(duration: TimeInterval, curve: Curve?, animation: @escapin
 }
 
 extension NSObject {
-    public class func slaminate(duration: TimeInterval, curve: Curve? = nil, animation: @escaping () -> Void) -> Animation {
+    public class func slaminate(duration: TimeInterval, curve: Curve? = nil, animation: @escaping (Void) -> Void) -> Animation {
         return AnimationBuilder(
             duration: duration,
             curve: curve ?? Curve.linear,

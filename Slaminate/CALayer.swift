@@ -92,7 +92,7 @@ private extension Array {
 
 extension CALayer: CoreAnimationKVCExtension {
     
-    @objc class var animatableKeyPaths: [String] {
+    class var animatableKeyPaths: [String] {
         return [String](union: [
             "contentsCenter".keyPath(forType: CGPoint.self),
             "contentsRect".keyPath(forType: CGRect.self),
@@ -119,7 +119,7 @@ extension CALayer: CoreAnimationKVCExtension {
         ])
     }
     
-    @objc var animatableKeyPaths: [String] {
+    var animatableKeyPaths: [String] {
         return type(of: self).animatableKeyPaths;
     }
     
