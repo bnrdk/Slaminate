@@ -19,7 +19,7 @@ extension UIView {
         } while (fromView != nil)
         var toView:UIView! = otherView
         repeat {
-            if let idx = fromViewHierarchy.index(of: toView) {
+            if let idx = fromViewHierarchy.firstIndex(of: toView) {
                 return fromViewHierarchy[idx]
             }
             toView = toView.superview

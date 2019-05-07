@@ -51,7 +51,7 @@ class DirectAnimation: Animation, PropertyAnimation {
     override func commit() {
         animationStart = Date(timeIntervalSinceNow: -position + delay)
         displayLink = CADisplayLink(target: self, selector: #selector(DirectAnimation.displayDidUpdate))
-        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
     override func complete(_ finished: Bool) {
@@ -97,7 +97,7 @@ class DirectAnimation: Animation, PropertyAnimation {
         
     }
     
-    func displayDidUpdate() {
+    @objc func displayDidUpdate() {
         self.position = abs(animationStart?.timeIntervalSinceNow ?? 0.0) - delay
     }
     

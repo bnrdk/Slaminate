@@ -92,7 +92,7 @@ private extension Array {
 
 extension CALayer: CoreAnimationKVCExtension {
     
-    class var animatableKeyPaths: [String] {
+    @objc class var animatableKeyPaths: [String] {
         return [String](union: [
             "contentsCenter".keyPath(forType: CGPoint.self),
             "contentsRect".keyPath(forType: CGRect.self),
@@ -179,11 +179,11 @@ extension CAEmitterLayer {
             "spin".keyPath(forType: Float.self)
             ])
     }
-    override var animatableKeyPaths: [String] {
+    /*override var animatableKeyPaths: [String] {
         return type(of: self).animatableKeyPaths + [String](union: emitterCells?.filter({ $0.name != nil }).map({ (cell) -> [String] in
             return "emitterCells.\(cell.name!)".keyPath(forType: CAEmitterCell.self)
         }) ?? [])
-    }
+    }*/
 }
 
 extension CAGradientLayer {
@@ -197,6 +197,7 @@ extension CAGradientLayer {
     }
 }
 
+/*
 extension CAReplicatorLayer {
     override var animatableKeyPaths: [String] {
         return super.animatableKeyPaths + [String](union: [
@@ -226,3 +227,4 @@ extension CAShapeLayer {
         ])
     }
 }
+*/

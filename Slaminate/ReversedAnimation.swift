@@ -25,9 +25,7 @@ class ReversedAnimation: DirectAnimation {
     }
     
     override var reversed: Bool {
-        @objc(isReversed) get {
-            return object is Animation
-        }
+        return object is Animation
     }
     
 }

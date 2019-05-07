@@ -8,7 +8,9 @@
 
 import Foundation
 
+@objcMembers
 class LayerAnimation: DirectAnimation, CAAnimationDelegate {
+    
     
     override class func canAnimate(_ object: NSObject, key: String) -> Bool {
         guard let layer = object as? CoreAnimationKVCExtension else { return false }

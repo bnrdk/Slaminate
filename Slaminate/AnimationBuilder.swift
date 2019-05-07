@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objcMembers
 class AnimationBuilder: AnimationGroup {
     
     static var allAnimations = [AnimationGroup]()
@@ -39,11 +40,11 @@ class AnimationBuilder: AnimationGroup {
     var constraintInfos = [PropertyInfo]()
     var constraintPresenceInfos = [ConstraintPresenceInfo]()
     
-    let animation: (Void) -> Void
+    let animation: () -> Void
     var applyDuration: TimeInterval
     var applyCurve: Curve
     
-    init(duration: TimeInterval, curve: Curve, animation: @escaping (Void) -> Void) {
+    init(duration: TimeInterval, curve: Curve, animation: @escaping () -> Void) {
         self.animation = animation
         self.applyCurve = curve
         self.applyDuration = duration

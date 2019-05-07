@@ -8,7 +8,8 @@
 
 import UIKit
 
-open class AnimationBuildIns: Animation {
+@objcMembers
+public class AnimationBuildIns: Animation {
     
     @objc public enum MoveDirection: Int {
         case top
@@ -52,7 +53,7 @@ open class AnimationBuildIns: Animation {
         self.animations.owner = self
     }
     
-    override open var duration: TimeInterval {
+    override public var duration: TimeInterval {
         get { return applyDuration }
         set {
             applyDuration = newValue
@@ -60,7 +61,7 @@ open class AnimationBuildIns: Animation {
         }
     }
     
-    override open var position: TimeInterval {
+    override public var position: TimeInterval {
         get { return animations.position }
         set { setPosition(newValue, apply: true) }
     }
@@ -73,19 +74,19 @@ open class AnimationBuildIns: Animation {
         super.setPosition(position, apply: apply)
     }
     
-    override open func on(_ event: AnimationEvent, then: @escaping (Animation) -> Void) -> AnimationBuildIns {
+    override public func on(_ event: AnimationEvent, then: @escaping (Animation) -> Void) -> AnimationBuildIns {
         return super.on(event, then: then) as! AnimationBuildIns
     }
         
-    override open func delayed(_ delay: TimeInterval) -> AnimationBuildIns {
+    override public func delayed(_ delay: TimeInterval) -> AnimationBuildIns {
         return super.delayed(delay) as! AnimationBuildIns
     }
     
-    override open func manual() -> AnimationBuildIns {
+    override public func manual() -> AnimationBuildIns {
         return super.manual() as! AnimationBuildIns
     }
     
-    open func fade(curve: Curve? = nil) -> AnimationBuildIns {
+    public func fade(curve: Curve? = nil) -> AnimationBuildIns {
         fades = (true, curve)
         return self
     }
@@ -105,16 +106,16 @@ open class AnimationBuildIns: Animation {
             ))
     }
     
-    open func move(direction: MoveDirection, offset: CGSize, curve: Curve? = nil) -> AnimationBuildIns {
+    public func move(direction: MoveDirection, offset: CGSize, curve: Curve? = nil) -> AnimationBuildIns {
         moves = (true, direction, offset, curve)
         return self
     }
     
-    open func move(direction: MoveDirection, outsideViewBounds viewBounds: UIView? = nil, curve: Curve? = nil) -> AnimationBuildIns {
+    public func move(direction: MoveDirection, outsideViewBounds viewBounds: UIView? = nil, curve: Curve? = nil) -> AnimationBuildIns {
         return move(direction: direction, offset: (viewBounds ?? view).layer.bounds.size, curve: nil)
     }
     
-    open func move() -> AnimationBuildIns {
+    public func move() -> AnimationBuildIns {
         return move(direction: .top, outsideViewBounds: nil)
     }
     
@@ -143,7 +144,7 @@ open class AnimationBuildIns: Animation {
             ))
     }
     
-    open func flip(direction: FlipDirection, curve: Curve? = nil) -> AnimationBuildIns {
+    public func flip(direction: FlipDirection, curve: Curve? = nil) -> AnimationBuildIns {
         flip = (true, direction, curve ?? flip.curve)
         return self
     }
@@ -219,13 +220,13 @@ open class AnimationBuildIns: Animation {
 }
 
 extension UIView {
-    public func setHidden(_ hidden: Bool, duration: TimeInterval, curve: Curve? = nil) -> AnimationBuildIns {
+    @objc public func setHidden(_ hidden: Bool, duration: TimeInterval, curve: Curve? = nil) -> AnimationBuildIns {
         return AnimationBuildIns(view: self, hide: hidden, duration: duration, curve: curve ?? Curve.linear)
     }
-    public func show(duration: TimeInterval, curve: Curve? = nil) -> AnimationBuildIns {
+    @objc public func show(duration: TimeInterval, curve: Curve? = nil) -> AnimationBuildIns {
         return setHidden(false, duration: duration, curve: curve)
     }
-    public func hide(duration: TimeInterval, curve: Curve? = nil) -> AnimationBuildIns {
+    @objc public func hide(duration: TimeInterval, curve: Curve? = nil) -> AnimationBuildIns {
         return setHidden(true, duration: duration, curve: curve)
     }
 }
